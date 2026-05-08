@@ -26,3 +26,18 @@ def test_db(request):
         return JsonResponse({"db_ok": True, "result": row})
     except Exception as e:
         return JsonResponse({"db_ok": False, "error": str(e), "traceback": traceback.format_exc()})
+
+def test_register(request):
+    from django.contrib.auth import get_user_model
+    User = get_user_model()
+    try:
+        user = User.objects.create_user(
+            username=f"debug_{os.urandom(4).hex()}",
+            password="TestPass123!",
+            email="debug@example.com"
+        )
+        # Try to access profile
+        profile = user.profile
+        return JsonResponse({"created": True, "user_id": user.id, "profile_level": profile.current_level})
+    except Exception as e:
+        return JsonResponse({"created": False, "error": str(e), "traceback": traceback.format_exc()})

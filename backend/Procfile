@@ -1,3 +1,1 @@
-web: gunicorn config.wsgi --bind 0.0.0.0:$PORT --workers 4 --timeout 120
-
-release: python manage.py migrate && python manage.py seed_quests
+web: gunicorn config.wsgi --bind 0.0.0.0:$PORT --workers 4 --timeout 120 --access-logfile - --error-logfile -

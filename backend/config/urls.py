@@ -6,12 +6,13 @@ from django.urls import path, include
 from drf_spectacular.views import (
     SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 )
-from .views import health_check, run_migrations
+from .views import health_check, run_migrations, seed_quests
 
 
 urlpatterns = [
     path('', health_check, name='health-check'),
     path('migrate/', run_migrations, name='run-migrations'),
+    path('seed/', seed_quests, name='seed-quests'),
     path('admin/', admin.site.urls),
 
     # API endpoints

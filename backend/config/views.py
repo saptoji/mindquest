@@ -21,3 +21,18 @@ def run_migrations(request):
             "error": str(e),
             "traceback": traceback.format_exc(),
         })
+
+def seed_quests(request):
+    output = StringIO()
+    errors = StringIO()
+    try:
+        call_command('seed_quests', stdout=output, stderr=errors)
+        return JsonResponse({
+            "seed": output.getvalue(),
+            "errors": errors.getvalue(),
+        })
+    except Exception as e:
+        return JsonResponse({
+            "error": str(e),
+            "traceback": traceback.format_exc(),
+        })
